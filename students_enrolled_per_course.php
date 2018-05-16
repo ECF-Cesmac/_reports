@@ -12,7 +12,7 @@ function getCoursesAndCategories() {
 
     return $DB->get_records_sql($sql);
 
-};
+}
 
 function getEnrolledPerCourses($courseId) {
     global $DB;
@@ -28,11 +28,10 @@ function getEnrolledPerCourses($courseId) {
 
     return $DB->get_record_sql($sql, array($courseId));
 
-};
+}
 
 $countEnroll = 0;
 $countEnrollCategory = 0;
-$categoryId = 0;
 
 ?>
 <!DOCTYPE html>
@@ -59,7 +58,6 @@ $categoryId = 0;
                     <th class="text-center" scope="col">Cursos</th>
                     <th class="text-center" scope="col">Disciplinas</th>
                     <th class="text-center" scope="col">matriculas na disciplina</th>
-                    <th class="text-center" scope="col">matriculas no curso</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,12 +66,6 @@ $categoryId = 0;
                     <th scope="row"><?php echo $course->name; ?></th>
                     <td><?php echo $course->fullname; ?></td>
                     <td class="text-center"><?php echo getEnrolledPerCourses($course->id)->count; ?></td>
-                <?php if ( $course->id !== $categoryId ):?>V
-                    <td class="text-center"><?php echo getEnrolledPerCourses($course->id)->count; ?></td>
-                <?php $categoryId = course->id; ?>
-                <?php else: ?>
-
-                <?php endif;?>
                 </tr>
     <?php $countEnroll += getEnrolledPerCourses($course->id)->count; ?>
     <?php endforeach; ?>
